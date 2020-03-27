@@ -1,0 +1,26 @@
+# Idea
+.idea
+
+# Misc
+CODEOWNERS
+Makefile
+README.*
+LICENSE
+
+# Terraform
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+
+# Go
+vendor
+
+# Git
+#.git required for pre-commit
+.gitignore
+
+# CI
+.semaphore
+
+# Docker
+Dockerfile
