@@ -38,7 +38,7 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 resource "aws_iam_policy" "terraform_s3_list_read_write_policy" {
   name        = "S3TerraformStateListReadWriteAccess"
   path        = "/"
-  description = "This policy grants limited read and write permissions to the Terraform DyanmoDB state lock table."
+  description = "This policy grants read and write permissions to the Terraform DyanmoDB state lock table."
 
   policy = data.aws_iam_policy_document.terraform_s3_list_read_write_policy_document.json
 }
@@ -46,18 +46,19 @@ resource "aws_iam_policy" "terraform_s3_list_read_write_policy" {
 data "aws_iam_policy_document" "terraform_s3_list_read_write_policy_document" {
   statement {
     actions = [
-      "dynamodb:GetItem",
-      "dynamodb:PutItem",
-      "dynamodb:DeleteItem"
+      "s3:*"
     ]
-    resources = [aws_dynamodb_table.terraform_state_lock.arn]
+    resources = [
+      aws_s3_bucket.terraform_state.arn,
+      "${aws_s3_bucket.terraform_state.arn}/organizations/github-terraform-example/terraform.tfstate"
+    ]
   }
 }
 
 resource "aws_iam_policy" "terraform_dynamodb_read_write_policy" {
   name        = "DynamoDBTerraformStateLocksReadWriteAccess"
   path        = "/"
-  description = "This policy grants limited read and write permissions to the Terraform DyanmoDB state lock table."
+  description = "This policy grants read and write permissions to the Terraform DyanmoDB state lock table."
 
   policy = data.aws_iam_policy_document.terraform_dynamodb_read_write_policy_document.json
 }
@@ -65,13 +66,36 @@ resource "aws_iam_policy" "terraform_dynamodb_read_write_policy" {
 data "aws_iam_policy_document" "terraform_dynamodb_read_write_policy_document" {
   statement {
     actions = [
-      "dynamodb:GetItem",
-      "dynamodb:PutItem",
-      "dynamodb:DeleteItem"
+      "dynamodb:*"
     ]
     resources = [aws_dynamodb_table.terraform_state_lock.arn]
   }
 }
+
+resource "aws_iam_policy" "iam_user_self_management_policy" {
+  name        = "IAMUserSelfManagement"
+  path        = "/"
+  description = "This policy grants an fulls permissions to manage the terraform-ci IAM user and its related IAM policies."
+
+  policy = data.aws_iam_policy_document.iam_user_self_management_policy_document.json
+}
+
+data "aws_caller_identity" "current" {}
+
+data "aws_iam_policy_document" "iam_user_self_management_policy_document" {
+  statement {
+    actions = [
+      "iam:*",
+    ]
+    resources = [
+      aws_iam_user.user.arn,
+      aws_iam_policy.terraform_dynamodb_read_write_policy.arn,
+      aws_iam_policy.terraform_s3_list_read_write_policy.arn,
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/IAMUserSelfManagement"
+    ]
+  }
+}
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Create the IAM user with attached policies
@@ -89,4 +113,9 @@ resource "aws_iam_user_policy_attachment" "terraform_s3_list_read_write_policy" 
 resource "aws_iam_user_policy_attachment" "terraform_dynamodb_read_write_policy" {
   user       = aws_iam_user.user.name
   policy_arn = aws_iam_policy.terraform_dynamodb_read_write_policy.arn
+}
+
+resource "aws_iam_user_policy_attachment" "iam_user_self_management_policy" {
+  user       = aws_iam_user.user.name
+  policy_arn = aws_iam_policy.iam_user_self_management_policy.arn
 }
