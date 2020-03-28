@@ -27,9 +27,7 @@ blocks:
         commands:
           - cache clear
       jobs:
-        - name: "Pre Commit Hooks"
-          commands:
-            - make pre-commit-hooks
+
         - name: "Terraform Plan"
           commands:
             - make terraform-init
