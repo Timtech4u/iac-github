@@ -21,13 +21,15 @@ global_job_config:
       - checkout --use-cache
 
 blocks:
-  - name: "Tests"
+  - name: "Lint and Plan"
     task:
       prologue:
         commands:
           - cache clear
       jobs:
-
+        - name: "Pre Commit Hooks"
+          commands:
+            - make pre-commit-hooks
         - name: "Terraform Plan"
           commands:
             - make terraform-init
