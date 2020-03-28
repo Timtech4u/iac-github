@@ -14,7 +14,7 @@ global_job_config:
     - name: TERRAFORM_PLANFILE
       value: "out.tfplan"
   secrets:
-    - name: TERRAFORM_GITHUB_CREDENTIALS
+    - name: github_access_token
     - name: aws_access_credentials
   prologue:
     commands:
