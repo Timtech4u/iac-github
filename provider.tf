@@ -5,13 +5,13 @@
 terraform {
   required_version = "~> 0.12.24"
 
-  //  backend "s3" {
-  //    bucket         = "github-terraform-example-terraform-state"
-  //    key            = "organizations/github-terraform-example/terraform.tfstate"
-  //    region         = "us-east-1"
-  //    encrypt        = true
-  //    dynamodb_table = "terraform-state-lock"
-  //  }
+  backend "s3" {
+    bucket         = "github-terraform-example-terraform-state"
+    key            = "organization/github-terraform-example/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-state-lock"
+  }
 
   required_providers {
     github = "~> 2.4"

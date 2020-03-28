@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "terraform_s3_list_read_write_policy_document" {
     ]
     resources = [
       aws_s3_bucket.terraform_state.arn,
-      "${aws_s3_bucket.terraform_state.arn}/organizations/github-terraform-example/terraform.tfstate"
+      "${aws_s3_bucket.terraform_state.arn}/organization/github-terraform-example/terraform.tfstate"
     ]
   }
 }
