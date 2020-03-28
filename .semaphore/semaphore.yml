@@ -38,7 +38,7 @@ blocks:
             - cache store terraform-planfile-$SEMAPHORE_GIT_BRANCH $TERRAFORM_PLANFILE
 
 promotions:
-  - name: "Deploy to GitHub"
+  - name: "IaC-Github Deploy to GitHub"
     pipeline_file: deploy.yml
     auto_promote:
       when: "branch = 'master'"
