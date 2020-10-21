@@ -40,7 +40,7 @@ resource "google_compute_instance" "default" {
 
 terraform {
   backend "gcs" {
-    bucket  = var.gcs_bucket_name
-    prefix  = "terraform/state"
+    bucket = var.gcs_bucket_name
+    prefix = "terraform/state"
   }
 }
