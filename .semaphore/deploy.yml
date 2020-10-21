@@ -13,7 +13,7 @@ global_job_config:
     - name: TERRAFORM_PLANFILE
       value: out.tfplan
   secrets:
-    - ci_secrets
+    - name: ci_secrets
   prologue:
     commands:
       - checkout --use-cache
