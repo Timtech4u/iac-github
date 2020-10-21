@@ -35,3 +35,12 @@ resource "google_compute_instance" "default" {
     scopes = ["userinfo-email", "compute-ro", "storage-ro"]
   }
 }
+
+// Locking
+
+terraform {
+  backend "gcs" {
+    bucket  = var.gcs_bucket_name
+    prefix  = "terraform/state"
+  }
+}
