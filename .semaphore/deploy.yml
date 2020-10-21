@@ -13,8 +13,8 @@ global_job_config:
     - name: TERRAFORM_PLANFILE
       value: out.tfplan
   secrets:
-    - name: github_access_token
-    - name: aws_access_credentials
+    - GCP_PROJECT
+    - GOOGLE_APPLICATION_CREDENTIALS
   prologue:
     commands:
       - checkout --use-cache
