@@ -40,13 +40,8 @@ resource "google_compute_instance" "default" {
 
 terraform {
   backend "gcs" {
-    bucket = "tim_playground_state"
-    prefix = "terraform/state"
-  }
-
-  config = {
+    bucket      = "tim_playground_state"
+    prefix      = "terraform/state"
     credentials = file(var.service_account_file)
-    bucket      = var.gcs_bucket_name
-    prefix      = var.project
   }
 }
