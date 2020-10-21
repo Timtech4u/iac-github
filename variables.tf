@@ -13,7 +13,7 @@ variable "zone" {
 variable "service_account_file" {
   type        = "string"
   description = "file path to JSON Service Account"
-  default     = "/sa.json"
+  default     = "/secrets/sa.json"
 }
 
 variable "gcs_bucket_name" {
