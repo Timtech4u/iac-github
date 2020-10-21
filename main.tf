@@ -43,4 +43,10 @@ terraform {
     bucket = "tim_playground_state"
     prefix = "terraform/state"
   }
+
+  config = {
+    credentials = file(var.service_account_file)
+    bucket      = var.gcs_bucket_name
+    prefix      = var.project
+  }
 }
