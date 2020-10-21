@@ -32,8 +32,8 @@ blocks:
           commands:
             - make terraform-init
             - make terraform-plan
-            - cache store terraform-wd-$SEMAPHORE_GIT_BRANCH .terraform
-            - cache store terraform-planfile-$SEMAPHORE_GIT_BRANCH $TERRAFORM_PLANFILE
+#            - cache store terraform-wd-$SEMAPHORE_GIT_BRANCH .terraform
+#            - cache store terraform-planfile-$SEMAPHORE_GIT_BRANCH $TERRAFORM_PLANFILE
 promotions:
   - name: IaC-Github Deploy to GitHub
     pipeline_file: deploy.yml
