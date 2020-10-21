@@ -37,11 +37,12 @@ resource "google_compute_instance" "default" {
 }
 
 // Backend State & Locking
+// this section does not currently support variables/functions
 
 terraform {
   backend "gcs" {
     bucket      = "tim_playground_state"
     prefix      = "terraform/state"
-    credentials = file(var.service_account_file)
+    credentials = "/home/semaphore/secrets/sa.json"
   }
 }
