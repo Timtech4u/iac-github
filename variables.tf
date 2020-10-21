@@ -15,9 +15,3 @@ variable "service_account_file" {
   description = "file path to JSON Service Account"
   default     = "/home/semaphore/secrets/sa.json"
 }
-
-variable "gcs_bucket_name" {
-  type        = "string"
-  description = "GCS bucket name for backend & state locking"
-  default     = "tim_playground_state"
-}
