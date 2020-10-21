@@ -1,14 +1,14 @@
 data "template_file" "cloud-init" {
-  template = "${file("cloud-init.yml.tmpl")}"
+  template = file("cloud-init.yml.tmpl")
 
 }
 
 resource "google_compute_instance" "default" {
   name         = "test"
   machine_type = "f1-micro"
-  zone         = "${var.zone}"
+  zone         = var.zone
 
-  project = "${var.project}"
+  project = var.project
 
   tags = ["http-traffic", "ssh-traffic"]
 
@@ -28,7 +28,7 @@ resource "google_compute_instance" "default" {
 
   metadata = {
     name      = "wg"
-    user-data = "${data.template_file.cloud-init.rendered}"
+    user-data = data.template_file.cloud-init.rendered
   }
 
   service_account {
