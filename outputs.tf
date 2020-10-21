@@ -1,9 +1,3 @@
-output "organization" {
-  description = "Members and Admins of the organization."
-  value       = module.organization
-}
-
-output "iac_github_repository" {
-  description = "All outputs of the iac-github repository."
-  value       = module.iac-github
+output "address" {
+  value = "${google_compute_instance.default.network_interface.0.access_config.0.nat_ip}"
 }

@@ -28,8 +28,6 @@ pre-commit-hooks:
 terraform-init:
 	@echo "${GREEN}Start running terraform init inside a docker container${RESET}"
 	@docker run --rm \
-		-e AWS_ACCESS_KEY_ID \
-		-e AWS_SECRET_ACCESS_KEY \
 		-e GITHUB_TOKEN \
 		-e GITHUB_ORGANIZATION \
 		-e TF_IN_AUTOMATION \
@@ -41,8 +39,6 @@ terraform-init:
 terraform-plan:
 	@echo "${GREEN}Start running terraform plan inside a docker container${RESET}"
 	@docker run --rm \
-		-e AWS_ACCESS_KEY_ID \
-		-e AWS_SECRET_ACCESS_KEY \
 		-e GITHUB_TOKEN \
 		-e GITHUB_ORGANIZATION \
 		-e TF_IN_AUTOMATION \
@@ -54,8 +50,6 @@ terraform-plan:
 terraform-apply:
 	@echo "${GREEN}Start running terraform apply inside a docker container${RESET}"
 	@docker run --rm \
-		-e AWS_ACCESS_KEY_ID \
-		-e AWS_SECRET_ACCESS_KEY \
 		-e GITHUB_TOKEN \
 		-e GITHUB_ORGANIZATION \
 		-e TF_IN_AUTOMATION \
