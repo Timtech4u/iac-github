@@ -34,9 +34,6 @@ blocks:
             - make terraform-plan
             - cache store terraform-wd-$SEMAPHORE_GIT_BRANCH .terraform
             - cache store terraform-planfile-$SEMAPHORE_GIT_BRANCH $TERRAFORM_PLANFILE
-      secrets:
-        - name: GCP_PROJECT
-        - name: GOOGLE_APPLICATION_CREDENTIALS
 promotions:
   - name: IaC-Github Deploy to GitHub
     pipeline_file: deploy.yml
