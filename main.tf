@@ -36,11 +36,11 @@ resource "google_compute_instance" "default" {
   }
 }
 
-// Locking
+// Backend State & Locking
 
 terraform {
   backend "gcs" {
-    bucket = var.gcs_bucket_name
+    bucket = "tim_playground_state"
     prefix = "terraform/state"
   }
 }
