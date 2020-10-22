@@ -17,6 +17,7 @@ global_job_config:
   prologue:
     commands:
       - checkout --use-cache
+      - cp ~/.secrets/sa.json sa.json
 blocks:
   - name: Deploy
     task:
