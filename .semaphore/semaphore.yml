@@ -24,7 +24,6 @@ blocks:
         commands:
           - cache clear
           - cp ~/.secrets/sa.json sa.json
-          - ls
       jobs:
         - name: Pre Commit Hooks
           commands:
