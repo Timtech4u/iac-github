@@ -42,6 +42,8 @@ resource "google_compute_instance" "default" {
 
 // Backend State & Locking
 // when needed, uncomment the following, and pass ` -backend-config=backend.config` in init step
+
+/*
 terraform {
   backend "gcs" {
     bucket      = "tim_playground_state"
@@ -49,3 +51,4 @@ terraform {
     credentials = "sa.json"
   }
 }
+*/
