@@ -33,7 +33,7 @@ terraform-init:
 		-e TF_IN_AUTOMATION \
 		-v `pwd`:/app/src \
 		${BUILD_TOOLS_DOCKER_IMAGE} \
-		sh -c "terraform init -input=false -backend-config=backend.config"
+		sh -c "terraform init -input=false"
 
 # Mounts the working directory inside a new container and runs terraform plan
 terraform-plan:
