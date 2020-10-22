@@ -1,5 +1,5 @@
 version: v1.0
-name: IaC-Github CI Pipeline
+name: IaC on Semaphore
 agent:
   machine:
     type: e1-standard-2
@@ -13,8 +13,7 @@ global_job_config:
     - name: TERRAFORM_PLANFILE
       value: out.tfplan
   secrets:
-    - GCP_PROJECT
-    - GOOGLE_APPLICATION_CREDENTIALS
+    - name: ci_secrets
   prologue:
     commands:
       - checkout --use-cache
@@ -24,6 +23,7 @@ blocks:
       prologue:
         commands:
           - cache clear
+          - cp ~/.secrets/sa.json sa.json
       jobs:
         - name: Pre Commit Hooks
           commands:
@@ -34,9 +34,6 @@ blocks:
             - make terraform-plan
             - cache store terraform-wd-$SEMAPHORE_GIT_BRANCH .terraform
             - cache store terraform-planfile-$SEMAPHORE_GIT_BRANCH $TERRAFORM_PLANFILE
-      secrets:
-        - name: GCP_PROJECT
-        - name: GOOGLE_APPLICATION_CREDENTIALS
 promotions:
   - name: IaC-Github Deploy to GitHub
     pipeline_file: deploy.yml

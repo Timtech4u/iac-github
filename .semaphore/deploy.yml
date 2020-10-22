@@ -1,5 +1,5 @@
 version: v1.0
-name: Deploy to GitHub
+name: Apply Terraform Changes
 agent:
   machine:
     type: e1-standard-2
@@ -13,8 +13,7 @@ global_job_config:
     - name: TERRAFORM_PLANFILE
       value: out.tfplan
   secrets:
-    - name: github_access_token
-    - name: aws_access_credentials
+    - name: ci_secrets
   prologue:
     commands:
       - checkout --use-cache

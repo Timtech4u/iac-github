@@ -1,0 +1,40 @@
+#cloud-config
+package_upgrade: true
+packages:
+  - iptables
+  - wireguard
+write_files:
+  - content: |
+      net.ipv4.ip_forward=1
+    path: /etc/sysctl.d/99-wireguard.conf
+    permissions: '0644'
+  - content: |
+      #!/usr/bin/env bash
+      set -e
+      chmod 0600 /etc/wireguard/wg0.conf
+
+    path: /usr/local/bin/wg_dns_updater.sh
+    permissions: '0755'
+  - content: |
+      [Unit]
+      Description=wg-dns-updater script
+      After=network.target
+
+      [Service]
+      Type=oneshot
+      RemainAfterExit=yes
+      ExecStart=/usr/local/bin/wg_dns_updater.sh
+
+      [Install]
+      WantedBy=multi-user.target
+    path: /etc/systemd/system/wg-dns-updater.service
+    permissions: '0644'
+runcmd:
+  - [ sysctl, -p, /etc/sysctl.d/99-wireguard.conf ]
+  - [ systemctl, daemon-reload ]
+  - [ systemctl, enable, --now, --no-block, wg-quick@wg0.service ]
+  - [ systemctl, enable, --now, wg-dns-updater.service ]
+power_state:
+  mode: reboot
+  delay: 1
+  message: Rebooting after installation
