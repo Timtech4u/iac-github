@@ -1,5 +1,5 @@
 version: v1.0
-name: IaC-Github CI - Init Terraform
+name: IaC on Semaphore
 agent:
   machine:
     type: e1-standard-2
