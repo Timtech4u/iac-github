@@ -13,5 +13,5 @@ variable "zone" {
 variable "service_account_file" {
   type        = "string"
   description = "file path to JSON Service Account"
-  default     = "~/.secrets/sa.json"
+  default     = ".secrets/sa.json"
 }
